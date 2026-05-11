@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(60deg, #1E2A47, #00235B);
+    color: #fff;
+  }
+  
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .login-container {
+    background: rgba(41, 39, 39, 0.8);
+    border-radius: 12px;
+    padding: 40px;
+    width: 350px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+  }
+  
+  .tab-menu {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    padding: 12px;
+    flex: 1;
+    background: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .tab.active {
+    background: #e64a19;
+    color: white;
+  }
+  
+  .form {
+    display: none;
+  }
+  
+  .form.active {
+    display: block;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-family:'garamond', serif;
+  }
+  
+  input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  button {
+    width: 80%;
+    padding: 12px;
+    background: #ff8a00;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  button:hover {
+    background: #e64a19;
+  }
+  
+  .switch {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+  .switch span {
+    color: #ff8a00;
+    cursor: pointer;
+  }
+  
+  .wrapper::before {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 60px;
+  }
+  
+  body {
+    background: url(../images/featured-cars/mclaren-gt.jpg);
+    background-size: cover;
+    background-position: center;
+  }
+  

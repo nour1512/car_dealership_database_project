@@ -1,0 +1,268 @@
+@page
+@model Error200Dealership.Pages.EmployeeModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+    <title>Employee Dashboard - Error 200 Dealership</title>
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .navbar { background-color:black !important; }
+        .navbar-nav > li > a { color:white !important; }
+        .navbar-nav > li > a:hover,.navbar-nav > li.active > a { color:#f8c12f !important; }
+        .dash-page { padding:50px 0 80px; background:#f8f9fb; margin-top:80px; }
+
+        /* Stats */
+        .stat-card { background:#fff; border-radius:10px; padding:22px 24px; box-shadow:0 2px 14px rgba(0,0,0,.07); border-left:4px solid #f8c12f; margin-bottom:24px; }
+        .stat-num  { font-size:30px; font-weight:700; color:#07074d; }
+        .stat-lbl  { font-size:12px; color:#818998; margin-top:3px; }
+
+        /* Panels */
+        .dash-panel { background:#fff; border-radius:12px; padding:28px; box-shadow:0 3px 18px rgba(0,0,0,.07); margin-bottom:30px; }
+        .dash-panel h3 { font-size:18px; font-weight:700; color:#07074d; margin-bottom:20px; padding-bottom:12px; border-bottom:2px solid #f8c12f; display:flex; align-items:center; gap:10px; }
+
+        /* Tables */
+        .styled-table { width:100%; border-collapse:collapse; font-size:13px; font-family:'Poppins',sans-serif; }
+        .styled-table thead tr { background:#07074d; color:#fff; }
+        .styled-table th { padding:12px 14px; text-align:left; font-weight:600; white-space:nowrap; }
+        .styled-table td { padding:11px 14px; border-bottom:1px solid #f0f0f0; color:#444; }
+        .styled-table tbody tr:hover td { background:#f9f9ff; }
+        .styled-table tbody tr:last-child td { border-bottom:none; }
+        .overflow-x { overflow-x:auto; }
+
+        /* Badges */
+        .badge-scheduled { background:#dbeafe; color:#1e40af; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-completed { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-cancelled { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-available { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-sold      { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+
+        /* Action buttons */
+        .btn-complete { background:#22c55e; color:#fff; border:none; border-radius:6px; padding:5px 13px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:.15s; }
+        .btn-complete:hover { background:#16a34a; }
+
+        .success-msg { background:#d1fae5; color:#065f46; border-radius:8px; padding:12px 18px; margin-bottom:20px; font-weight:600; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+             data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="#">Error <sup>200</sup> Dealership<span></span></a>
+                </div>
+                <div>
+                    <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="nav-item active"><a href="#" class="nav-link">Dashboard</a></li>
+                            <li class="nav-item"><a href="#appointments" class="nav-link">Appointments</a></li>
+                            <li class="nav-item"><a href="#cars" class="nav-link">Cars</a></li>
+                            <li class="nav-item"><a href="#customers" class="nav-link">Customers</a></li>
+                            <li class="nav-item"><a href="Index" class="nav-link" style="color:#f8c12f">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<section class="dash-page">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="section-header">
+            <p>welcome <span>to your</span> portal</p>
+            <h2>employee dashboard</h2>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ApptSuccess))
+        {
+            <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.ApptSuccess</div>
+        }
+
+        <!-- Stats -->
+        <div class="row">
+            <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.TotalAppointments</div><div class="stat-lbl">Total Appointments</div></div></div>
+            <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.TotalCustomers</div><div class="stat-lbl">Registered Customers</div></div></div>
+            <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.AvailableCars</div><div class="stat-lbl">Cars Available</div></div></div>
+            <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.TotalOrders</div><div class="stat-lbl">Accessory Orders</div></div></div>
+        </div>
+
+        <!-- Appointments -->
+        <div class="dash-panel" id="appointments">
+            <h3><i class="fa fa-calendar"></i> All Appointments</h3>
+            @if (Model.Appointments.Count == 0)
+            {
+                <p style="color:#818998;text-align:center;padding:20px">No appointments found.</p>
+            }
+            else
+            {
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead>
+                            <tr><th>#</th><th>Customer</th><th>Type</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var a in Model.Appointments)
+                            {
+                                <tr>
+                                    <td>@a.AppointmentID</td>
+                                    <td>@a.CustomerName</td>
+                                    <td>@a.AppointmentType</td>
+                                    <td>@a.AppointmentDate</td>
+                                    <td>@a.AppointmentTime</td>
+                                    <td><span class="badge-@a.Status.ToLower()">@a.Status</span></td>
+                                    <td>
+                                        @if (a.Status == "Scheduled")
+                                        {
+                                            <form method="post" asp-page-handler="CompleteAppt" style="display:inline">
+                                                <input type="hidden" name="AppointmentID" value="@a.AppointmentID" />
+                                                <button type="submit" class="btn-complete">Mark Complete</button>
+                                            </form>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <!-- Cars -->
+        <div class="dash-panel" id="cars">
+            <h3><i class="fa fa-car"></i> Car Inventory</h3>
+            <div class="overflow-x">
+                <table class="styled-table">
+                    <thead><tr><th>#</th><th>Make</th><th>Model</th><th>Year</th><th>Color</th><th>Price</th><th>Fuel</th><th>Transmission</th><th>Status</th></tr></thead>
+                    <tbody>
+                        @foreach (var c in Model.Cars)
+                        {
+                            <tr>
+                                <td>@c.CarID</td>
+                                <td><strong>@c.Make</strong></td>
+                                <td>@c.Model</td>
+                                <td>@c.CarYear</td>
+                                <td>@c.Color</td>
+                                <td><strong>$@c.Price.ToString("N0")</strong></td>
+                                <td>@c.FuelType</td>
+                                <td>@c.Transmission</td>
+                                <td><span class="badge-@c.Status.ToLower()">@c.Status</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customers -->
+        <div class="dash-panel" id="customers">
+            <h3><i class="fa fa-users"></i> Customer Records</h3>
+            <div class="overflow-x">
+                <table class="styled-table">
+                    <thead><tr><th>#</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone</th><th>Joined</th></tr></thead>
+                    <tbody>
+                        @foreach (var c in Model.Customers)
+                        {
+                            <tr>
+                                <td>@c.CustomerID</td>
+                                <td>@c.FirstName</td>
+                                <td>@c.LastName</td>
+                                <td>@c.Email</td>
+                                <td>@c.PhoneNumber</td>
+                                <td>@c.CreatedAt</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="#">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>quick links</h2>
+                        <ul>
+                            <li><a href="#">dashboard</a></li>
+                            <li><a href="#appointments">appointments</a></li>
+                            <li><a href="#cars">car inventory</a></li>
+                            <li><a href="#customers">customers</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6"><ul><li><a href="#">mercedes_benz</a></li><li><a href="#">lamborghini</a></li><li><a href="#">rolls-royce</a></li></ul></div>
+                            <div class="col-md-6 col-xs-6"><ul><li><a href="#">ferrari</a></li><li><a href="#">bugatti</a></li><li><a href="#">porsche</a></li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>staff portal</h2>
+                        <div class="footer-newsletter"><p>Error 200 Dealership Employee Dashboard &mdash; CSAI202 Fall 2024 Team 29</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6"><p>&copy; copyright. designed and developed by <a href="#">themesine</a>.</p></div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top"><div class="return-to-top"><i class="fa fa-angle-up" id="scroll-top"></i></div></div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/custom.js"></script>
+</body>
+</html>

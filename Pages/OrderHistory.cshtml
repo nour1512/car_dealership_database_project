@@ -1,0 +1,235 @@
+@page
+@model Error200Dealership.Pages.OrderHistoryModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+    <title>My Orders - Error 200 Dealership</title>
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .navbar { background-color:black !important; }
+        .navbar-nav > li > a { color:white !important; }
+        .navbar-nav > li > a:hover, .navbar-nav > li.active > a { color:#f8c12f !important; }
+        .orders-page { padding:50px 0 80px; background:#fff; margin-top:80px; }
+        .orders-table-wrap { background:#fff; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,.08); overflow:hidden; }
+        .orders-table-wrap table { width:100%; border-collapse:collapse; font-size:14px; font-family:'Poppins',sans-serif; }
+        .orders-table-wrap thead tr { background:#07074d; color:#fff; }
+        .orders-table-wrap th { padding:14px 18px; text-align:left; font-weight:600; font-size:13px; letter-spacing:.5px; }
+        .orders-table-wrap td { padding:14px 18px; border-bottom:1px solid #f0f0f0; color:#444; }
+        .orders-table-wrap tbody tr:hover td { background:#f9f9ff; }
+        .orders-table-wrap tbody tr:last-child td { border-bottom:none; }
+        .badge-pending   { background:#fef9c3; color:#854d0e; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+        .badge-confirmed { background:#dbeafe; color:#1e40af; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+        .badge-delivered { background:#d1fae5; color:#065f46; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+        .badge-cancelled { background:#fee2e2; color:#991b1b; padding:4px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+        .empty-state { text-align:center; padding:70px 20px; color:#818998; }
+        .empty-state i { font-size:56px; color:#e0e0e0; margin-bottom:20px; display:block; }
+        .empty-state h3 { font-size:22px; color:#444a57; margin-bottom:10px; }
+        .stat-card { background:#fff; border-radius:10px; padding:22px 28px; box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:4px solid #f8c12f; text-align:center; margin-bottom:24px; }
+        .stat-num { font-size:32px; font-weight:700; color:#07074d; }
+        .stat-lbl { font-size:13px; color:#818998; margin-top:4px; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+             data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="Customer">Error <sup>200</sup> Dealership<span></span></a>
+                </div>
+                <div>
+                    <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="nav-item"><a href="Customer" class="nav-link">Home Page</a></li>
+                            <li class="nav-item"><a href="Appointments" class="nav-link">Book Appointment</a></li>
+                            <li class="nav-item"><a href="Accessories" class="nav-link">Accessories</a></li>
+                            <li class="nav-item"><a href="AllCars" class="nav-link">All Cars</a></li>
+                            <li class="nav-item active"><a href="#" class="nav-link">My Orders</a></li>
+                            <li class="nav-item"><a href="Index" class="nav-link" style="color:#f8c12f">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<section class="orders-page">
+    <div class="container">
+        <div class="section-header">
+            <p>track <span>your</span> purchases</p>
+            <h2>my order history</h2>
+        </div>
+
+        <!-- Stats -->
+        <div class="row" style="margin-bottom:30px">
+            <div class="col-md-4 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-num">@Model.Orders.Count</div>
+                    <div class="stat-lbl">Total Orders</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-num">@Model.Orders.Count(o => o.Status == "Pending")</div>
+                    <div class="stat-lbl">Pending Orders</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="stat-card">
+                    <div class="stat-num">$@Model.Orders.Sum(o => o.TotalAmount).ToString("N0")</div>
+                    <div class="stat-lbl">Total Spent</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        @if (Model.Orders.Count == 0)
+        {
+            <div class="empty-state">
+                <i class="fa fa-shopping-bag"></i>
+                <h3>No orders yet</h3>
+                <p>You haven't placed any accessory orders. Head to our accessories shop to get started!</p>
+                <br>
+                <a href="Accessories"><button class="welcome-btn" style="font-size:14px;padding:11px 30px">Browse Accessories</button></a>
+            </div>
+        }
+        else
+        {
+            <div class="orders-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var o in Model.Orders)
+                        {
+                            <tr>
+                                <td><strong>#@o.OrderID</strong></td>
+                                <td>@o.OrderDate</td>
+                                <td><strong>$@o.TotalAmount.ToString("N0")</strong></td>
+                                <td>
+                                    <span class="badge-@o.Status.ToLower()">@o.Status</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <div style="text-align:center;margin-top:36px">
+            <a href="Accessories"><button class="welcome-btn" style="font-size:14px;padding:11px 28px;margin-right:12px">Shop Accessories</button></a>
+            <a href="Customer"><button class="welcome-btn" style="font-size:14px;padding:11px 28px;background:#444">&larr; Back to Home</button></a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="Customer">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>quick links</h2>
+                        <ul>
+                            <li><a href="Customer">home</a></li>
+                            <li><a href="Appointments">book appointment</a></li>
+                            <li><a href="Accessories">accessories</a></li>
+                            <li><a href="FeedbackPage">feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li><a href="#">mercedes_benz</a></li>
+                                    <li><a href="#">lamborghini</a></li>
+                                    <li><a href="#">rolls-royce</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li><a href="#">ferrari</a></li>
+                                    <li><a href="#">bugatti</a></li>
+                                    <li><a href="#">porsche</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>news letter</h2>
+                        <div class="footer-newsletter"><p>Subscribe to get latest news update and informations</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>&copy; copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>. | CSAI202 Fall 2024 &mdash; Team 29</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
+        </div>
+    </div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/custom.js"></script>
+</body>
+</html>

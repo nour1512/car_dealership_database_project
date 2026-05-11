@@ -1,0 +1,394 @@
+@page
+@model Error200Dealership.Pages.AccessoriesModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Car Accessories</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .accessories-section { padding:60px 0; background-color:#f8f9fb; margin-left:30px; margin-right:30px; }
+        .accessories-header { text-align:center; margin-bottom:40px; }
+        .accessories-header h2 { font-size:36px; font-weight:700; color:#444a57; }
+        .accessories-header p { color:#818998; font-size:18px; }
+        .accessory-item { text-align:center; margin-bottom:30px; }
+        .accessory-item img { max-width:100%; height:auto; border-radius:5px; }
+        .accessory-title { font-size:20px; font-weight:500; color:#444a57; margin:10px 0; }
+        .availability { font-size:16px; color:#818998; }
+        .navbar { background-color:black !important; }
+        .navbar-nav > li > a { color:white !important; }
+        .navbar-nav > li > a:hover, .navbar-nav > li.active > a { color:#f8c12f !important; }
+        .accessory-title { font-size:small; }
+        img { filter:drop-shadow(0 50px 20px #0001); }
+        button { background-color:#818998; color:#fff; padding:10px; border:none; border-radius:15px; cursor:pointer; width:100%; font-size:15px; transition:.2s linear; }
+        #cartbtn { background-color:#f8f9fb; color:#000; }
+        #cartbtn span { background-color:#f8f9fb; color:#000; }
+        .addCart { background-color:#353; padding:5px 10px; border-radius:20px; margin-top:10px; border:none; cursor:pointer; color:#fff; }
+        svg { width:30px; }
+        .accessories-section #cart.container { width:900px; max-width:90vw; margin:auto; text-align:right; padding-top:10px; display:flex; align-items:center; padding:20px 0; }
+        .icon-cart { position:relative; }
+        .icon-cart span { display:flex; width:14px; height:20px; align-items:center; color:#000; border-radius:50%; position:absolute; top:50%; right:-20px; }
+        .toggle-button { background-color:#f6f9ff; color:#000; padding:10px 20px; border:none; border-radius:15px; cursor:pointer; font-size:15px; transition:.2s linear; box-shadow:0 4px 6px rgba(0,0,0,0.1); width:10rem; }
+        .toggle-button:hover { background-color:#e8ebf3; }
+        .floating-tab { position:fixed; bottom:70px; right:20px; width:450px; padding:20px; height:90%; background-color:white; border:1px solid #ccc; border-radius:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1); display:none; z-index:1000; flex-direction:column; justify-content:space-between; grid-template-rows:70px 1fr 70px; }
+        .floating-tab h1 { padding:20px; margin:0; font-weight:300; }
+        .floating-tab button { background-color:#E88C0E; border:none; font-family:Poppins; font-weight:500; cursor:pointer; }
+        .tab-content { padding:20px; flex:1; overflow-y:auto; }
+        .tab-buttons { display:flex; justify-content:flex-end; gap:10px; padding:10px 20px; border-top:1px solid #eee; background-color:#f9f9f9; border-radius:0 0 10px 10px; }
+        .tab-buttons button { padding:8px 12px; border:none; border-radius:5px; cursor:pointer; background-color:#28a745; color:white; transition:background-color 0.2s ease; }
+        .tab-buttons button:hover { background-color:#218838; }
+        .ListCart .item img { width:100%; }
+        .ListCart .item { display:grid; grid-template-columns:70px 150px 50px 1fr; gap:10px; text-align:center; align-items:center; }
+        .ListCart .quantity span { display:inline-block; width:25px; height:25px; background-color:#eee; color:#555; border-radius:50%; cursor:pointer; }
+        .ListCart .quantity span:nth-child(2) { background-color:transparent; color:#333; font-weight:600; }
+        .ListCart .item:nth-child(even) { background-color:#eee1; }
+        .ListCart { overflow:auto; }
+        .ListCart::-webkit-scrollbar { width:0; }
+        .success-msg { background:#d1fae5; color:#065f46; padding:12px; border-radius:6px; margin:12px 0; font-weight:600; text-align:center; }
+        /* Checkout modal */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:10000; align-items:center; justify-content:center; }
+        .modal-overlay.open { display:flex; }
+        .modal-box { background:#fff; border-radius:12px; padding:32px; width:440px; max-width:95vw; }
+        .modal-box h3 { font-size:20px; font-weight:700; color:#07074d; margin-bottom:18px; }
+        .modal-input { width:100%; padding:10px 14px; border:1px solid #e0e0e0; border-radius:6px; font-size:14px; margin-bottom:12px; font-family:inherit; outline:none; }
+        .modal-input:focus { border-color:#6a64f1; }
+        .modal-btns { display:flex; gap:10px; margin-top:6px; }
+        .modal-btns button { flex:1; padding:11px; font-size:14px; font-weight:600; border:none; border-radius:8px; cursor:pointer; font-family:inherit; }
+        .btn-confirm { background:#28a745; color:white; }
+        .btn-cancel  { background:#f3f4f6; color:#333; }
+    </style>
+</head>
+<body>
+
+<!-- Checkout Modal -->
+<div class="modal-overlay" id="checkoutModal">
+    <div class="modal-box">
+        <h3>Complete Your Order</h3>
+        <input type="text"  id="orderName"  class="modal-input" placeholder="Your Full Name (optional)" />
+        <input type="email" id="orderEmail" class="modal-input" placeholder="Email Address (optional)" />
+        <p style="font-size:13px;color:#818998;margin-bottom:14px">Total: <strong id="modalTotal"></strong></p>
+        <form method="post" asp-page-handler="PlaceOrder" id="orderForm">
+            <input type="hidden" name="CustomerName"  id="hiddenName" />
+            <input type="hidden" name="CustomerEmail" id="hiddenEmail" />
+            <input type="hidden" name="ItemsJson"     id="hiddenItems" />
+            <div class="modal-btns">
+                <button type="button" class="btn-cancel" onclick="closeCheckout()">Cancel</button>
+                <button type="submit" class="btn-confirm">Place Order</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Top-area -->
+<div class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="Customer">Error <sup>200</sup> Dealership<span></span></a>
+                </div>
+                <div>
+                    <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="nav-item"><a href="Customer" class="nav-link">Home Page</a></li>
+                            <li class="nav-item"><a href="Customer#service" class="nav-link">Our Services</a></li>
+                            <li class="nav-item"><a href="Customer#featured-cars" class="nav-link">Featured Cars</a></li>
+                            <li class="nav-item"><a href="Customer#new-cars" class="nav-link">New Cars</a></li>
+                            <li class="nav-item active"><a href="#" class="nav-link">Accessories</a></li>
+                            <li class="nav-item"><a href="FeedbackPage" class="nav-link">Leave Feedback</a></li>
+                            <li class="nav-item"><a href="Customer#contact" class="nav-link">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<br><br><br><br><br><br><br><br>
+
+<section class="accessories-section">
+    <div class="container">
+        <div class="accessories-header">
+            <h2>Car Accessories</h2>
+            <p>Explore our range of high-quality car accessories available for purchase.</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.OrderSuccess))
+        {
+            <div class="success-msg">@Model.OrderSuccess</div>
+        }
+
+        <div id="cart" class="container">
+            <button class="toggle-button" onclick="toggleTab()">Product List</button>
+            <div class="icon-cart">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                </svg>
+                <span id="cartCount">0</span>
+            </div>
+            <div id="floatingTab" class="floating-tab">
+                <div class="tab-content" style="display:flex;align-items:center;justify-content:space-between;padding-bottom:0">
+                    <h1 style="padding:0;margin:0">Shopping Cart</h1>
+                    <button onclick="toggleTab()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#333;width:auto;padding:4px 10px;border-radius:50%;line-height:1">&#10005;</button>
+                </div>
+                <div class="ListCart" id="cartItems">
+                </div>
+                <div class="tab-buttons">
+                    <button class="checkOut" onclick="openCheckout()">CHECK OUT</button>
+                </div>
+            </div>
+        </div>
+
+        <br><br><br><br>
+
+        <!-- Row 1 — DB-driven products -->
+        <div class="row" id="productsRow1">
+            @foreach (var acc in Model.Accessories.Take(6))
+            {
+                <div class="col-md-2 accessory-item"
+                     data-id="@acc.AccessoryID"
+                     data-name="@System.Text.Json.JsonSerializer.Serialize(acc.Name)"
+                     data-price="@acc.Price"
+                     data-img="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")">
+                    <img src="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")"
+                         alt="@acc.Name"
+                         onerror="this.src='~/images/accessories/brush.jpg'" />
+                    <div class="accessory-title">@acc.Name</div>
+                    <div class="type">@acc.Category</div>
+                    <div class="price">$@acc.Price.ToString("N0")</div>
+                    <button class="addCart" onclick="addToCart(@acc.AccessoryID)">Add To Cart</button>
+                </div>
+            }
+        </div>
+
+        @if (Model.Accessories.Count > 6)
+        {
+            <div class="row" id="productsRow2">
+                @foreach (var acc in Model.Accessories.Skip(6).Take(6))
+                {
+                    <div class="col-md-2 accessory-item"
+                         data-id="@acc.AccessoryID"
+                         data-name="@System.Text.Json.JsonSerializer.Serialize(acc.Name)"
+                         data-price="@acc.Price"
+                         data-img="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")">
+                        <img src="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")"
+                             alt="@acc.Name"
+                             onerror="this.src='~/images/accessories/brush.jpg'" />
+                        <div class="accessory-title">@acc.Name</div>
+                        <div class="type">@acc.Category</div>
+                        <div class="price">$@acc.Price.ToString("N0")</div>
+                        <button class="addCart" onclick="addToCart(@acc.AccessoryID)">Add To Cart</button>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Model.Accessories.Count > 12)
+        {
+            <div class="row" id="productsRow3">
+                @foreach (var acc in Model.Accessories.Skip(12))
+                {
+                    <div class="col-md-2 accessory-item"
+                         data-id="@acc.AccessoryID"
+                         data-name="@System.Text.Json.JsonSerializer.Serialize(acc.Name)"
+                         data-price="@acc.Price"
+                         data-img="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")">
+                        <img src="~/images/accessories/@System.IO.Path.GetFileName(acc.ImageURL ?? "brush.jpg")"
+                             alt="@acc.Name"
+                             onerror="this.src='~/images/accessories/brush.jpg'" />
+                        <div class="accessory-title">@acc.Name</div>
+                        <div class="type">@acc.Category</div>
+                        <div class="price">$@acc.Price.ToString("N0")</div>
+                        <button class="addCart" onclick="addToCart(@acc.AccessoryID)">Add To Cart</button>
+                    </div>
+                }
+            </div>
+        }
+
+        <br><br><br><br><br>
+        <a href="Customer">
+            <button id="goback-btnn">GoBack</button>
+        </a>
+    </div>
+</section>
+
+<section id="blog" class="blog"></section>
+
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="Customer">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>about devloon</h2>
+                        <ul>
+                            <li><a href="#">about us</a></li>
+                            <li><a href="#">career</a></li>
+                            <li><a href="#">terms <span>of service</span></a></li>
+                            <li><a href="#">privacy policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li><a href="#">mercedes_benz</a></li>
+                                    <li><a href="#">lamborghini</a></li>
+                                    <li><a href="#">bently</a></li>
+                                    <li><a href="#">rolls-royce</a></li>
+                                    <li><a href="#">maserati</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li><a href="#">ferrari</a></li>
+                                    <li><a href="#">porsche</a></li>
+                                    <li><a href="#">mclaren</a></li>
+                                    <li><a href="#">aston martin</a></li>
+                                    <li><a href="#">bugatti</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>news letter</h2>
+                        <div class="footer-newsletter"><p>Subscribe to get latest news update and informations</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>&copy; copyright.designed and developed by <a href="https://www.themesine.com/">themesine</a>.</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
+        </div>
+    </div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="~/js/custom.js"></script>
+<script>
+let cart = [];
+
+function addToCart(id) {
+    const el    = document.querySelector('[data-id="' + id + '"]');
+    const name  = JSON.parse(el.dataset.name);
+    const price = parseFloat(el.dataset.price);
+    const img   = el.querySelector('img').src;
+    const existing = cart.find(c => c.id === id);
+    if (existing) { existing.qty++; }
+    else { cart.push({ id, name, price, img, qty: 1 }); }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+    renderCartItems();
+}
+
+function renderCartItems() {
+    const container = document.getElementById('cartItems');
+    if (!cart.length) { container.innerHTML = '<div style="padding:20px;color:#aaa;text-align:center">Cart is empty</div>'; return; }
+    container.innerHTML = cart.map(item => `
+        <div class="item">
+            <div class="image"><img src="${item.img}" alt="${item.name}"></div>
+            <div class="name" style="font-size:12px">${item.name.substring(0,40)}...</div>
+            <div class="totalPrice">$${(item.price * item.qty).toLocaleString()}</div>
+            <div class="quantity">
+                <span class="minus" onclick="changeQty(${item.id},-1)">&lt;</span>
+                <span>${item.qty}</span>
+                <span class="plus" onclick="changeQty(${item.id},1)">&gt;</span>
+            </div>
+        </div>`).join('');
+}
+
+function changeQty(id, delta) {
+    const item = cart.find(c => c.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(c => c.id !== id);
+    updateCartUI();
+}
+
+function toggleTab() {
+    const tab = document.getElementById('floatingTab');
+    tab.style.display = (tab.style.display === 'none' || tab.style.display === '') ? 'flex' : 'none';
+}
+
+function openCheckout() {
+    if (!cart.length) { alert('Your cart is empty!'); return; }
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('modalTotal').textContent = '$' + total.toLocaleString();
+    document.getElementById('checkoutModal').classList.add('open');
+}
+
+function closeCheckout() {
+    document.getElementById('checkoutModal').classList.remove('open');
+}
+
+document.getElementById('orderForm').addEventListener('submit', function() {
+    document.getElementById('hiddenName').value  = document.getElementById('orderName').value;
+    document.getElementById('hiddenEmail').value = document.getElementById('orderEmail').value;
+    const items = cart.map(i => ({ AccessoryID: i.id, Quantity: i.qty, UnitPrice: i.price }));
+    document.getElementById('hiddenItems').value = JSON.stringify(items);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+@page
+@model Error200Dealership.Pages.AllCarsModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+    <title>All Cars In Stock - Error 200 Dealership</title>
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .navbar { background-color:black !important; }
+        .navbar-nav > li > a { color:white !important; }
+        .navbar-nav > li > a:hover, .navbar-nav > li.active > a { color:#f8c12f !important; }
+        .cars-page { padding:40px 0 70px; background:#fff; margin-top:80px; }
+        .badge-available { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700; }
+        .badge-sold      { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:12px; font-size:11px; font-weight:700; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+             data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="Customer">Error <sup>200</sup> Dealership<span></span></a>
+                </div>
+                <div>
+                    <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="nav-item"><a href="Customer" class="nav-link">Home Page</a></li>
+                            <li class="nav-item"><a href="Customer#service" class="nav-link">Our Services</a></li>
+                            <li class="nav-item active"><a href="#" class="nav-link">All Cars</a></li>
+                            <li class="nav-item"><a href="Accessories" class="nav-link">Accessories</a></li>
+                            <li class="nav-item"><a href="FeedbackPage" class="nav-link">Leave Feedback</a></li>
+                            <li class="nav-item"><a href="OrderHistory" class="nav-link">My Orders</a></li>
+                            <li class="nav-item"><a href="Appointments" class="nav-link">Book Appointment</a></li>
+                            <li class="nav-item"><a href="Index" class="nav-link" style="color:#f8c12f">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<section class="cars-page">
+    <div class="container">
+        <div class="section-header">
+            <p>browse <span>our</span> full inventory</p>
+            <h2>all cars in stock</h2>
+        </div>
+
+        @if (Model.Cars.Count == 0)
+        {
+            <p style="text-align:center;color:#818998;padding:40px">No cars available at the moment. Check back soon!</p>
+        }
+        else
+        {
+            <div class="featured-cars-content">
+                @for (int i = 0; i < Model.Cars.Count; i += 4)
+                {
+                    <div class="row">
+                        @foreach (var car in Model.Cars.Skip(i).Take(4))
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <div class="single-featured-cars">
+                                    <div class="featured-img-box">
+                                        <div class="featured-cars-img">
+                                            <img src="~/images/featured-cars/mercedes-s-class.webp" alt="@car.Make @car.Model"
+                                                 style="width:100%;height:190px;object-fit:cover" />
+                                        </div>
+                                        <div class="featured-model-info">
+                                            <p>@car.CarYear &bull; @car.Color &bull; @car.FuelType &bull; @car.Transmission
+                                                <span class="badge-@(car.Status == "Available" ? "available" : "sold")" style="float:right;margin-top:2px">@car.Status</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="featured-cars-txt">
+                                        <h2>@car.Make @car.Model</h2>
+                                        <h3>$@car.Price.ToString("N0")</h3>
+                                        <p>@(string.IsNullOrEmpty(car.Description) ? "Premium luxury vehicle available for test drive." : car.Description)</p>
+                                        @if (car.Status == "Available")
+                                        {
+                                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                                        }
+                                        else
+                                        {
+                                            <button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px;background:#aaa;cursor:not-allowed" disabled>Sold</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+
+        <div style="text-align:center;margin-top:30px">
+            <a href="Customer#featured-cars">
+                <button class="welcome-btn" style="font-size:14px;padding:11px 30px">&larr; Back to Home</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="Customer">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>quick links</h2>
+                        <ul>
+                            <li><a href="Customer">home</a></li>
+                            <li><a href="Appointments">book appointment</a></li>
+                            <li><a href="Accessories">accessories</a></li>
+                            <li><a href="FeedbackPage">feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li><a href="#">mercedes_benz</a></li>
+                                    <li><a href="#">lamborghini</a></li>
+                                    <li><a href="#">rolls-royce</a></li>
+                                    <li><a href="#">maserati</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li><a href="#">ferrari</a></li>
+                                    <li><a href="#">bugatti</a></li>
+                                    <li><a href="#">porsche</a></li>
+                                    <li><a href="#">mclaren</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>news letter</h2>
+                        <div class="footer-newsletter"><p>Subscribe to get latest news update and informations</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>&copy; copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>. | CSAI202 Fall 2024 &mdash; Team 29</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
+        </div>
+    </div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="~/js/custom.js"></script>
+</body>
+</html>

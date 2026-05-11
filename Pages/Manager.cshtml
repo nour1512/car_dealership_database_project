@@ -1,0 +1,560 @@
+@page
+@model Error200Dealership.Pages.ManagerModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+    <title>Manager Dashboard - Error 200 Dealership</title>
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .navbar { background-color:black !important; }
+        .navbar-nav > li > a { color:white !important; }
+        .navbar-nav > li > a:hover,.navbar-nav > li.active > a { color:#f8c12f !important; }
+        .dash-page { padding:50px 0 80px; background:#f8f9fb; margin-top:80px; }
+
+        /* Tab navigation */
+        .mgr-tabs { display:flex; gap:0; background:#fff; border-radius:10px; box-shadow:0 2px 12px rgba(0,0,0,.07); margin-bottom:32px; overflow:hidden; flex-wrap:wrap; }
+        .mgr-tab  { padding:14px 20px; border:none; background:transparent; font-size:13px; font-weight:600; color:#818998; cursor:pointer; font-family:'Poppins',sans-serif; border-bottom:3px solid transparent; transition:.15s; white-space:nowrap; }
+        .mgr-tab.active,.mgr-tab:hover { color:#07074d; border-bottom-color:#f8c12f; background:#fafafa; }
+
+        /* Panels */
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; }
+        .dash-panel { background:#fff; border-radius:12px; padding:28px; box-shadow:0 3px 18px rgba(0,0,0,.07); margin-bottom:28px; }
+        .dash-panel h3 { font-size:17px; font-weight:700; color:#07074d; margin-bottom:20px; padding-bottom:12px; border-bottom:2px solid #f8c12f; display:flex; align-items:center; gap:10px; }
+
+        /* Stats */
+        .stat-card { background:#fff; border-radius:10px; padding:20px 22px; box-shadow:0 2px 14px rgba(0,0,0,.07); border-left:4px solid #f8c12f; margin-bottom:22px; }
+        .stat-num  { font-size:28px; font-weight:700; color:#07074d; }
+        .stat-lbl  { font-size:12px; color:#818998; margin-top:3px; }
+
+        /* Tables */
+        .styled-table { width:100%; border-collapse:collapse; font-size:13px; font-family:'Poppins',sans-serif; }
+        .styled-table thead tr { background:#07074d; color:#fff; }
+        .styled-table th { padding:11px 13px; text-align:left; font-weight:600; white-space:nowrap; }
+        .styled-table td { padding:10px 13px; border-bottom:1px solid #f0f0f0; color:#444; vertical-align:middle; }
+        .styled-table tbody tr:hover td { background:#f9f9ff; }
+        .styled-table tbody tr:last-child td { border-bottom:none; }
+        .overflow-x { overflow-x:auto; }
+
+        /* Badges */
+        .badge-available  { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-sold       { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-reserved   { background:#fef9c3; color:#854d0e; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-scheduled  { background:#dbeafe; color:#1e40af; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-completed  { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-cancelled  { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+        .badge-pending    { background:#fef9c3; color:#854d0e; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+
+        /* Forms */
+        .add-form { background:#f8f9ff; border-radius:10px; padding:22px; margin-bottom:24px; border:1px solid #e8eaff; }
+        .add-form h4 { font-size:15px; font-weight:700; color:#07074d; margin-bottom:16px; }
+        .form-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-bottom:12px; }
+        .form-grid input,.form-grid select { width:100%; padding:9px 12px; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; font-family:'Poppins',sans-serif; outline:none; }
+        .form-grid input:focus,.form-grid select:focus { border-color:#f8c12f; }
+        .form-grid textarea { resize:vertical; min-height:65px; }
+
+        /* Buttons */
+        .btn-add    { background:#07074d; color:#fff; border:none; border-radius:6px; padding:9px 22px; font-size:13px; font-weight:600; cursor:pointer; font-family:'Poppins',sans-serif; transition:.15s; }
+        .btn-add:hover { background:#f8c12f; color:#000; }
+        .btn-danger { background:#ef4444; color:#fff; border:none; border-radius:5px; padding:4px 11px; font-size:11px; cursor:pointer; font-family:inherit; }
+        .btn-danger:hover { background:#dc2626; }
+        .btn-green  { background:#22c55e; color:#fff; border:none; border-radius:5px; padding:4px 11px; font-size:11px; cursor:pointer; font-family:inherit; }
+        .btn-green:hover { background:#16a34a; }
+        .btn-gold   { background:#f8c12f; color:#000; border:none; border-radius:5px; padding:4px 11px; font-size:11px; cursor:pointer; font-family:inherit; font-weight:600; }
+
+        .success-msg { background:#d1fae5; color:#065f46; border-radius:8px; padding:12px 18px; margin-bottom:20px; font-weight:600; }
+        .status-select { padding:4px 8px; font-size:12px; border:1px solid #ddd; border-radius:4px; font-family:inherit; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy"
+             data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="#">Error <sup>200</sup> Dealership<span></span></a>
+                </div>
+                <div>
+                    <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                            <li class="nav-item active"><a href="#" class="nav-link">Manager Dashboard</a></li>
+                            <li class="nav-item"><a href="Index" class="nav-link" style="color:#f8c12f">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<section class="dash-page">
+    <div class="container">
+
+        <div class="section-header">
+            <p>full control <span>of</span> operations</p>
+            <h2>manager dashboard</h2>
+        </div>
+
+        <!-- Status messages -->
+        @if (!string.IsNullOrEmpty(Model.CarMsg))  { <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.CarMsg</div>  }
+        @if (!string.IsNullOrEmpty(Model.EmpMsg))  { <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.EmpMsg</div>  }
+        @if (!string.IsNullOrEmpty(Model.ApptMsg)) { <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.ApptMsg</div> }
+        @if (!string.IsNullOrEmpty(Model.AccMsg))  { <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.AccMsg</div>  }
+        @if (!string.IsNullOrEmpty(Model.SupMsg))  { <div class="success-msg"><i class="fa fa-check-circle"></i> @Model.SupMsg</div>  }
+
+        <!-- Tab Navigation -->
+        <div class="mgr-tabs">
+            <button class="mgr-tab active" onclick="showTab('overview',this)">&#x1F4CA; Overview</button>
+            <button class="mgr-tab" onclick="showTab('cars',this)">&#x1F697; Cars</button>
+            <button class="mgr-tab" onclick="showTab('customers',this)">&#x1F465; Customers</button>
+            <button class="mgr-tab" onclick="showTab('employees',this)">&#x1F454; Employees</button>
+            <button class="mgr-tab" onclick="showTab('appointments',this)">&#x1F4C5; Appointments</button>
+            <button class="mgr-tab" onclick="showTab('accessories',this)">&#x1F6DE; Accessories</button>
+            <button class="mgr-tab" onclick="showTab('orders',this)">&#x1F4E6; Orders</button>
+            <button class="mgr-tab" onclick="showTab('feedback',this)">&#x2B50; Feedback</button>
+            <button class="mgr-tab" onclick="showTab('suppliers',this)">&#x1F3ED; Suppliers</button>
+        </div>
+
+        <!-- ══ OVERVIEW ═══════════════════════════════════════════════════════ -->
+        <div id="tab-overview" class="tab-panel active">
+            <div class="row">
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalCars</div><div class="stat-lbl">&#x1F697; Total Cars</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.AvailableCars</div><div class="stat-lbl">&#x2705; Available Cars</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalCustomers</div><div class="stat-lbl">&#x1F465; Customers</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalEmployees</div><div class="stat-lbl">&#x1F454; Employees</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalAppointments</div><div class="stat-lbl">&#x1F4C5; Appointments</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalOrders</div><div class="stat-lbl">&#x1F4E6; Orders</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">$@Model.Stats.TotalRevenue.ToString("N0")</div><div class="stat-lbl">&#x1F4B0; Revenue</div></div></div>
+                <div class="col-md-3 col-sm-6"><div class="stat-card"><div class="stat-num">@Model.Stats.TotalFeedback</div><div class="stat-lbl">&#x2B50; Feedback</div></div></div>
+            </div>
+            <div class="dash-panel">
+                <h3><i class="fa fa-clock-o"></i> Recent Appointments</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Customer</th><th>Type</th><th>Date</th><th>Status</th></tr></thead>
+                        <tbody>
+                            @foreach (var a in Model.Appointments.Take(8))
+                            {
+                                <tr>
+                                    <td>@a.AppointmentID</td>
+                                    <td>@a.CustomerName</td>
+                                    <td>@a.AppointmentType</td>
+                                    <td>@a.AppointmentDate</td>
+                                    <td><span class="badge-@a.Status.ToLower()">@a.Status</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ CARS ═══════════════════════════════════════════════════════════ -->
+        <div id="tab-cars" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-plus-circle"></i> Add New Car</h3>
+                <div class="add-form">
+                    <form method="post" asp-page-handler="AddCar">
+                        <div class="form-grid">
+                            <input type="text"   name="Make"         placeholder="Make *"   required />
+                            <input type="text"   name="Model"        placeholder="Model *"  required />
+                            <input type="number" name="CarYear"      placeholder="Year *"   min="1990" max="2030" required />
+                            <input type="text"   name="Color"        placeholder="Colour" />
+                            <input type="number" name="Mileage"      placeholder="Mileage"  value="0" min="0" />
+                            <input type="number" name="Price"        placeholder="Price *"  step="0.01" required />
+                            <select name="CarStatus">
+                                <option value="Available">Available</option>
+                                <option value="Sold">Sold</option>
+                                <option value="Reserved">Reserved</option>
+                            </select>
+                            <input type="text" name="FuelType"     placeholder="Fuel Type" />
+                            <input type="text" name="Transmission" placeholder="Transmission" />
+                        </div>
+                        <button type="submit" class="btn-add">Add Car</button>
+                    </form>
+                </div>
+            </div>
+            <div class="dash-panel">
+                <h3><i class="fa fa-car"></i> All Cars (@Model.Cars.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Make</th><th>Model</th><th>Year</th><th>Color</th><th>Price</th><th>Fuel</th><th>Trans.</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            @foreach (var c in Model.Cars)
+                            {
+                                <tr>
+                                    <td>@c.CarID</td>
+                                    <td><strong>@c.Make</strong></td>
+                                    <td>@c.Model</td>
+                                    <td>@c.CarYear</td>
+                                    <td>@c.Color</td>
+                                    <td><strong>$@c.Price.ToString("N0")</strong></td>
+                                    <td>@c.FuelType</td>
+                                    <td>@c.Transmission</td>
+                                    <td><span class="badge-@c.Status.ToLower()">@c.Status</span></td>
+                                    <td>
+                                        <form method="post" asp-page-handler="MarkSold" style="display:inline">
+                                            <input type="hidden" name="CarID" value="@c.CarID" />
+                                            <button type="submit" class="btn-gold">Sold</button>
+                                        </form>
+                                        <form method="post" asp-page-handler="DeleteCar" style="display:inline">
+                                            <input type="hidden" name="CarID" value="@c.CarID" />
+                                            <button type="submit" class="btn-danger" onclick="return confirm('Delete this car?')">Del</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ CUSTOMERS ═════════════════════════════════════════════════════ -->
+        <div id="tab-customers" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-users"></i> All Customers (@Model.Customers.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone</th><th>City</th><th>Joined</th></tr></thead>
+                        <tbody>
+                            @foreach (var c in Model.Customers)
+                            {
+                                <tr>
+                                    <td>@c.CustomerID</td>
+                                    <td>@c.FirstName</td>
+                                    <td>@c.LastName</td>
+                                    <td>@c.Email</td>
+                                    <td>@c.PhoneNumber</td>
+                                    <td>@c.City</td>
+                                    <td>@c.CreatedAt</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ EMPLOYEES ═════════════════════════════════════════════════════ -->
+        <div id="tab-employees" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-user-plus"></i> Add Sales Employee</h3>
+                <div class="add-form">
+                    <form method="post" asp-page-handler="AddEmployee">
+                        <div class="form-grid">
+                            <input type="text"     name="EmpFirstName" placeholder="First Name *" required />
+                            <input type="text"     name="EmpLastName"  placeholder="Last Name *"  required />
+                            <input type="email"    name="EmpEmail"     placeholder="Email *"       required />
+                            <input type="password" name="EmpPassword"  placeholder="Password *"    required />
+                            <input type="text"     name="EmpPhone"     placeholder="Phone Number" />
+                            <input type="date"     name="EmpHireDate" />
+                        </div>
+                        <button type="submit" class="btn-add">Add Employee</button>
+                    </form>
+                </div>
+            </div>
+            <div class="dash-panel">
+                <h3><i class="fa fa-id-badge"></i> Sales Employees (@Model.Employees.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone</th><th>Hire Date</th><th>Action</th></tr></thead>
+                        <tbody>
+                            @foreach (var e in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@e.EmployeeID</td>
+                                    <td>@e.FirstName</td>
+                                    <td>@e.LastName</td>
+                                    <td>@e.Email</td>
+                                    <td>@e.PhoneNumber</td>
+                                    <td>@e.HireDate</td>
+                                    <td>
+                                        <form method="post" asp-page-handler="DeleteEmployee" style="display:inline">
+                                            <input type="hidden" name="EmployeeID" value="@e.EmployeeID" />
+                                            <button type="submit" class="btn-danger" onclick="return confirm('Delete employee?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPOINTMENTS -->
+        <div id="tab-appointments" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-calendar"></i> All Appointments (@Model.Appointments.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Customer</th><th>Type</th><th>Date</th><th>Time</th><th>City</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody>
+                            @foreach (var a in Model.Appointments)
+                            {
+                                <tr>
+                                    <td>@a.AppointmentID</td>
+                                    <td>@a.CustomerName</td>
+                                    <td>@a.AppointmentType</td>
+                                    <td>@a.AppointmentDate</td>
+                                    <td>@a.AppointmentTime</td>
+                                    <td>@a.City</td>
+                                    <td><span class="badge-@a.Status.ToLower()">@a.Status</span></td>
+                                    <td>
+                                        <form method="post" asp-page-handler="UpdateApptStatus" style="display:inline">
+                                            <input type="hidden" name="AppointmentID" value="@a.AppointmentID" />
+                                            @* <select name="NewStatus" class="status-select">
+                                                <option value="Scheduled" @(a.Status=="Scheduled"?"selected":"")>Scheduled</option>
+                                                <option value="Completed" @(a.Status=="Completed"?"selected":"")>Completed</option>
+                                                <option value="Cancelled" @(a.Status=="Cancelled"?"selected":"")>Cancelled</option>
+                                            </select> *@
+                                            <select name="NewStatus" class="status-select">
+                                                <option value="Scheduled" selected="@(a.Status == "Scheduled")">Scheduled</option>
+                                                <option value="Completed" selected="@(a.Status == "Completed")">Completed</option>
+                                                <option value="Cancelled" selected="@(a.Status == "Cancelled")">Cancelled</option>
+                                            </select>
+                                            <button type="submit" class="btn-green">Save</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ ACCESSORIES ════════════════════════════════════════════════════ -->
+        <div id="tab-accessories" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-plus-circle"></i> Add Accessory</h3>
+                <div class="add-form">
+                    <form method="post" asp-page-handler="AddAccessory">
+                        <div class="form-grid">
+                            <input type="text"   name="AccName"      placeholder="Name *"    required />
+                            <input type="text"   name="AccCategory"  placeholder="Category" />
+                            <input type="number" name="AccPrice"     placeholder="Price *"   step="0.01" required />
+                            <input type="number" name="AccStock"     placeholder="Stock"     value="0" min="0" />
+                            <input type="text"   name="AccImageURL"  placeholder="Image URL" />
+                            <select name="AccSupplierID">
+                                <option value="">-- Supplier (optional) --</option>
+                                @foreach (var s in Model.Suppliers)
+                                {
+                                    <option value="@s.SupplierID">@s.SupplierName</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-add">Add Accessory</button>
+                    </form>
+                </div>
+            </div>
+            <div class="dash-panel">
+                <h3><i class="fa fa-list"></i> All Accessories (@Model.Accessories.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Action</th></tr></thead>
+                        <tbody>
+                            @foreach (var a in Model.Accessories)
+                            {
+                                <tr>
+                                    <td>@a.AccessoryID</td>
+                                    <td>@a.Name</td>
+                                    <td>@a.Category</td>
+                                    <td>$@a.Price.ToString("N0")</td>
+                                    <td>@a.Stock</td>
+                                    <td>
+                                        <form method="post" asp-page-handler="DeleteAccessory" style="display:inline">
+                                            <input type="hidden" name="AccessoryID" value="@a.AccessoryID" />
+                                            <button type="submit" class="btn-danger" onclick="return confirm('Delete?')">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ ORDERS ═════════════════════════════════════════════════════════ -->
+        <div id="tab-orders" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-shopping-bag"></i> All Orders (@Model.Orders.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>Order #</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+                        <tbody>
+                            @foreach (var o in Model.Orders)
+                            {
+                                <tr>
+                                    <td><strong>#@o.OrderID</strong></td>
+                                    <td>@o.CustomerName</td>
+                                    <td>@o.OrderDate</td>
+                                    <td><strong>$@o.TotalAmount.ToString("N0")</strong></td>
+                                    <td><span class="badge-@o.Status.ToLower()">@o.Status</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ FEEDBACK ═══════════════════════════════════════════════════════ -->
+        <div id="tab-feedback" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-star"></i> Customer Feedback (@Model.FeedbackList.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Customer</th><th>Rating</th><th>Comments</th><th>Date</th></tr></thead>
+                        <tbody>
+                            @foreach (var f in Model.FeedbackList)
+                            {
+                                <tr>
+                                    <td>@f.FeedbackID</td>
+                                    <td>@f.CustomerName</td>
+                                    <td style="color:#f8c12f;font-size:16px">@(new string('★', f.Rating))@(new string('☆', 5-f.Rating))</td>
+                                    <td>@f.Comments</td>
+                                    <td>@f.SubmittedAt</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ SUPPLIERS ══════════════════════════════════════════════════════ -->
+        <div id="tab-suppliers" class="tab-panel">
+            <div class="dash-panel">
+                <h3><i class="fa fa-plus-circle"></i> Add Supplier</h3>
+                <div class="add-form">
+                    <form method="post" asp-page-handler="AddSupplier">
+                        <div class="form-grid">
+                            <input type="text"  name="SupName"    placeholder="Supplier Name *" required />
+                            <input type="email" name="SupEmail"   placeholder="Contact Email" />
+                            <input type="text"  name="SupPhone"   placeholder="Phone Number" />
+                            <input type="text"  name="SupAddress" placeholder="Address" />
+                        </div>
+                        <button type="submit" class="btn-add">Add Supplier</button>
+                    </form>
+                </div>
+            </div>
+            <div class="dash-panel">
+                <h3><i class="fa fa-industry"></i> Suppliers (@Model.Suppliers.Count)</h3>
+                <div class="overflow-x">
+                    <table class="styled-table">
+                        <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead>
+                        <tbody>
+                            @foreach (var s in Model.Suppliers)
+                            {
+                                <tr>
+                                    <td>@s.SupplierID</td>
+                                    <td><strong>@s.SupplierName</strong></td>
+                                    <td>@s.ContactEmail</td>
+                                    <td>@s.PhoneNumber</td>
+                                    <td>@s.Address</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="#">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>quick links</h2>
+                        <ul>
+                            <li><a href="#" onclick="showTab('overview',document.querySelector('.mgr-tab'))">overview</a></li>
+                            <li><a href="#" onclick="showTab('cars',document.querySelectorAll('.mgr-tab')[1])">cars</a></li>
+                            <li><a href="#" onclick="showTab('appointments',document.querySelectorAll('.mgr-tab')[4])">appointments</a></li>
+                            <li><a href="#" onclick="showTab('feedback',document.querySelectorAll('.mgr-tab')[7])">feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-6"><ul><li><a href="#">mercedes_benz</a></li><li><a href="#">lamborghini</a></li><li><a href="#">rolls-royce</a></li></ul></div>
+                            <div class="col-md-6 col-xs-6"><ul><li><a href="#">ferrari</a></li><li><a href="#">bugatti</a></li><li><a href="#">porsche</a></li></ul></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>manager portal</h2>
+                        <div class="footer-newsletter"><p>Error 200 Dealership Manager Dashboard &mdash; CSAI202 Fall 2024 Team 29</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6"><p>&copy; copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>.</p></div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top"><div class="return-to-top"><i class="fa fa-angle-up" id="scroll-top"></i></div></div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/custom.js"></script>
+<script>
+function showTab(name, clickedBtn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.mgr-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (clickedBtn) clickedBtn.classList.add('active');
+}
+</script>
+</body>
+</html>

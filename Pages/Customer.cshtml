@@ -1,0 +1,535 @@
+@page
+@model Error200Dealership.Pages.CustomerModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rufina:400,700" rel="stylesheet">
+    <title>Error 200 Showroom</title>
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/css/flaticon.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/bootsnav.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <style>
+        .db-cars-section { background:#f8f9fb; padding:40px 0; }
+        .db-car-card { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 3px 15px rgba(0,0,0,.08); margin-bottom:24px; transition:.2s; }
+        .db-car-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,.14); }
+        .db-car-img { width:100%; height:180px; object-fit:cover; }
+        .db-car-img-placeholder { width:100%; height:180px; background:linear-gradient(135deg,#1a1a2e,#07074d); display:flex; align-items:center; justify-content:center; color:#f8c12f; font-size:48px; }
+        .db-car-body { padding:16px; }
+        .db-car-name { font-size:16px; font-weight:700; color:#07074d; margin-bottom:4px; }
+        .db-car-sub  { font-size:12px; color:#818998; margin-bottom:8px; }
+        .db-car-price { font-size:18px; font-weight:700; color:#07074d; margin-bottom:10px; }
+        .db-car-btn { background:#07074d; color:#fff; border:none; border-radius:5px; padding:8px 14px; font-size:12px; font-weight:600; cursor:pointer; width:100%; transition:.2s; }
+        .db-car-btn:hover { background:#f8c12f; color:#000; }
+    </style>
+</head>
+<body>
+
+<!-- Welcome greeting (subtle, inside navbar area) -->
+<section id="home" class="welcome-hero">
+    <div class="top-area">
+        <div class="header-area">
+            <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand" href="#">Error <sup>200</sup> Dealership<span></span></a>
+                    </div>
+                    <div>
+                        <nav class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                            <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li class="nav-item active"><a href="#home" class="nav-link">Home Page</a></li>
+                                <li class="nav-item"><a href="#service" class="nav-link">Our Services</a></li>
+                                <li class="nav-item"><a href="#featured-cars" class="nav-link">Featured Cars</a></li>
+                                <li class="nav-item"><a href="#new-cars" class="nav-link">New Cars</a></li>
+                                <li class="nav-item"><a href="Accessories" class="nav-link">Accessories</a></li>
+                                <li class="nav-item"><a href="FeedbackPage" class="nav-link">Leave Feedback</a></li>
+                                <li class="nav-item"><a href="OrderHistory" class="nav-link">My Orders</a></li>
+                                <li class="nav-item"><a href="#contact" class="nav-link">Contact Us</a></li>
+                                <li class="nav-item"><a href="Index" class="nav-link" style="color:#f8c12f">Logout</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="container">
+        <div class="welcome-hero-txt">
+            <h2>get your desired car for a reasonable price</h2>
+            <p>
+                At Error <sup>200</sup> Showroom, we redefine luxury on the road. Discover a curated collection of world-class vehicles, where sophistication, performance, and prestige come standard.
+            </p>
+            <button class="welcome-btn" onclick="window.location.href='Appointments'">Book Appointment</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11">
+                <div class="model-search-content">
+                    <div class="row">
+                        <div class="col-md-offset-1 col-md-2 col-sm-12">
+                            <div class="single-model-search">
+                                <h2>select year</h2>
+                                <div class="model-select-icon">
+                                    <select class="form-control">
+                                        <option value="default">year</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="single-model-search">
+                                <h2>body style</h2>
+                                <div class="model-select-icon">
+                                    <select class="form-control">
+                                        <option value="default">style</option>
+                                        <option value="muscle">muscle</option>
+                                        <option value="sports_car">sports car</option>
+                                        <option value="SUV">SUV</option>
+                                        <option value="convertible">convertible</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-1 col-md-2 col-sm-12">
+                            <div class="single-model-search">
+                                <h2>select a price range</h2>
+                                <div class="model-select-icon">
+                                    <select class="form-control">
+                                        <option value="default">price</option>
+                                        <option value="$150000">$150,000</option>
+                                        <option value="$250000">$250,000</option>
+                                        <option value="$350000">$350,000</option>
+                                        <option value="$450000">$450,000</option>
+                                        <option value="$550000">$550,000</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="single-model-search">
+                                <h2>select model</h2>
+                                <div class="model-select-icon">
+                                    <select class="form-control">
+                                        <option value="default">model</option>
+                                        <option value="bently">Bently</option>
+                                        <option value="lamborghini">Lamborghini</option>
+                                        <option value="ferrari">Ferrari</option>
+                                        <option value="rolls_royce">Rolls-Royce</option>
+                                        <option value="maserati">Maserati</option>
+                                        <option value="mclaren">Mclaren</option>
+                                        <option value="aston_martin">Aston Martin</option>
+                                        <option value="jaguar">Jaguar</option>
+                                        <option value="porsche">Porsche</option>
+                                        <option value="bugatti">Bugatti</option>
+                                        <option value="mercedes_benz">Mercedes-Benz</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12">
+                            <div class="single-model-search text-center">
+                                <button class="welcome-btn model-search-btn">search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- service -->
+<section id="service" class="service">
+    <div class="container">
+        <div class="service-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon"><i class="flaticon-car"></i></div>
+                        <h2><a href="#">largest dealership <span>of</span> car</a></h2>
+                        <p>As the largest car dealership in the region, we offer an unparalleled selection of vehicles, ensuring that every customer finds their perfect match.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon"><i class="flaticon-car-repair"></i></div>
+                        <h2><a href="#">unlimited repair warranty</a></h2>
+                        <p>Enjoy peace of mind with our unlimited repair warranty, ensuring that your vehicle stays in top condition for as long as you own it.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service-item">
+                        <div class="single-service-icon"><i class="flaticon-car-1"></i></div>
+                        <h2><a href="#">insurance support</a></h2>
+                        <p>With our comprehensive insurance support, we make sure you're fully covered, offering seamless assistance for all your vehicle protection needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- new-cars -->
+<section id="new-cars" class="new-cars">
+    <div class="container">
+        <div class="section-header">
+            <p>checkout <span>the</span> latest cars</p>
+            <h2>newest cars</h2>
+        </div>
+        <div class="new-cars-content">
+            <div class="owl-carousel owl-theme" id="new-cars-carousel">
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="~/images/new-cars-model/porsche white background high resolution.jpeg" alt="porsche"/>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2>porsche panamero turbo</h2>
+                                    <p>With a powerful turbocharged engine and an unmistakable road presence, the 2022 Panamera Turbo S is Porsche's sporting ethos in four-door form. Unlike the iconic 911 sports car, the Panamera Turbo S sedan has its engine up front — a twin-turbo V-8 making 620 horsepower.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="~/images/new-cars-model/lamborghini photo.jpeg" alt="lamborghini"/>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2>lamborghini huracan</h2>
+                                    <p>The Lamborghini Huracan Evo is an experience like no other. From the moment you sit in the driver's seat, the raw power and precision of the car are palpable. The roar of the engine as you accelerate is exhilarating.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-cars-item">
+                    <div class="single-new-cars-item">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-12">
+                                <div class="new-cars-img">
+                                    <img src="~/images/new-cars-model/Mansory rolls grey background.jpg" alt="rolls royce"/>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <div class="new-cars-txt">
+                                    <h2>rolls-royce dawn</h2>
+                                    <p>The Rolls-Royce Dawn carries all the characteristics of any other car from the brand — comfort, luxury and power in spades. What you must always remember about a Rolls-Royce is that it always ensures the owner is in as much comfort as possible.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- featured-cars (static original + DB cars) -->
+<section id="featured-cars" class="featured-cars">
+    <div class="container">
+        <div class="section-header">
+            <p>checkout <span>the</span> featured cars</p>
+            <h2>featured cars</h2>
+        </div>
+        <div class="featured-cars-content">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/Maserati Quattroporte.jpg" alt="Maserati Quattroporte"></div>
+                            <div class="featured-model-info"><p>model: 2019 <span class="featured-mi-span"> 404-hp 3.0-liter V-6 or a 523-hp 3.8-liter V-8.</span></p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Maserati Quattroporte</h2><h3>$240,000</h3>
+                            <p>An eight-speed automatic and rear-wheel drive are standard. Both engines sing lovely operatic tunes when hustled.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/ASTON-MARTIN.webp" alt="aston martin"></div>
+                            <div class="featured-model-info"><p>model: 2021 <span class="featured-mi-span"> 715 hp &#64; 6500 rpm</span></p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Aston Martin DBS Superleggera</h2><h3>$450,000</h3>
+                            <p>A twin-turbocharged 5.2-liter V-12 engine makes 715 horsepower. Mash the gas pedal and the DBS takes off like a Saturn V rocket.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/bugatti.jpg" alt="bugatti"></div>
+                            <div class="featured-model-info"><p>model: 2021 <span class="featured-mi-span"> 431.072 km/h</span> <span class="featured-hp-span"> 987 hp</span></p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Bugatti Veyron</h2><h3>$350,000</h3>
+                            <p>The Veyron features an 8.0-litre, quad-turbocharged, W16 cylinder engine, equivalent to two narrow-angle V8 engines bolted together.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/bently.avif" alt="bentley"></div>
+                            <div class="featured-model-info"><p>model: 2020 <span class="featured-mi-span">285 km/h</span></p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Bently Flying Spur</h2><h3>$390,000</h3>
+                            <p>The new Ultra Performance Hybrid powertrain combines a V8 petrol engine with a powerful electric motor, delivering 11% more torque.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/rolls-royce-cullinan-white-background.webp" alt="rolls royce cullinan"></div>
+                            <div class="featured-model-info"><p>model: 2019 <span class="featured-mi-span"> 22 inch 7-spoke Design Alloy Wheels</span> automatic</p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Rolls-Royce Cullinan</h2><h3>$450,000</h3>
+                            <p>The Rolls-Royce Cullinan is a full-sized luxury SUV manufactured by Rolls-Royce Motor Cars as the brand's first all-wheel drive vehicle.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/mercedes-s-class.webp" alt="mercedes s class"></div>
+                            <div class="featured-model-info"><p>model: 2018 <span class="featured-mi-span">463 hp &#64; 5,250-5,500 rpm</span> <span class="featured-hp-span"> 4.0L V8 biturbo</span></p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Mercedes-Benz S-class</h2><h3>$250,000</h3>
+                            <p>Biturbo power puts the wind in your sails, while an adaptive suspension unravels winding roads.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/jaguar-xf.jpg" alt="jaguar xf"></div>
+                            <div class="featured-model-info"><p>model: 2018 <span class="featured-mi-span"> LED headlights, 18" alloy wheels, 12-way electric seats</span> automatic</p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Jaguar XF</h2><h3>$180,000</h3>
+                            <p>Slim and striking with Front Animated Directional Indicators. Gloss Black foil on the monogram-patterned grille mesh emphasises elegance.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="single-featured-cars">
+                        <div class="featured-img-box">
+                            <div class="featured-cars-img"><img src="~/images/featured-cars/ferrari-812.webp" alt="ferrari 812"></div>
+                            <div class="featured-model-info"><p>model: 2021 <span class="featured-mi-span">top speed of 340 km/h (211 mph)</span> automatic</p></div>
+                        </div>
+                        <div class="featured-cars-txt">
+                            <h2>Ferrari 812 Superfast</h2><h3>$75,800</h3>
+                            <p>The 812 Superfast is the ultimate grand touring car, a ludicrously powerful front-engine, rear-drive, V-12 prancing horse.</p>
+                            <a href="Appointments"><button class="welcome-btn" style="font-size:13px;padding:8px 18px;margin-top:10px">Book Test Drive</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Cars button -->
+            <div class="row">
+                <div class="col-md-12" style="text-align:center;margin-top:30px;margin-bottom:10px">
+                    <a href="AllCars"><button class="welcome-btn" style="font-size:15px;padding:12px 36px">View All Cars In Stock &rarr;</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- clients-say -->
+<section id="clients-say" class="clients-say">
+    <div class="container">
+        <div class="section-header"><h2>what our clients say</h2></div>
+        <div class="row">
+            <div class="owl-carousel testimonial-carousel">
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info"><div class="testimonial-img"><img src="~/images/clients/c1.png" alt="client"/></div></div>
+                            <div class="testimonial-comment"><p>The service was exceptional, and the staff was very professional. Highly recommend this place!</p></div>
+                            <div class="testimonial-person"><h2>rafe cameron</h2><h4>new york</h4></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info"><div class="testimonial-img"><img src="~/images/clients/c2.png" alt="client"/></div></div>
+                            <div class="testimonial-comment"><p>Enjoyed the visit. The quality was excellent, but the seating could be improved.</p></div>
+                            <div class="testimonial-person"><h2>kiara maybank</h2><h4>london</h4></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-12">
+                    <div class="single-testimonial-box">
+                        <div class="testimonial-description">
+                            <div class="testimonial-info"><div class="testimonial-img"><img src="~/images/clients/c3.png" alt="client"/></div></div>
+                            <div class="testimonial-comment"><p>Unbelievably good! I loved everything about this place. Definitely returning!</p></div>
+                            <div class="testimonial-person"><h2>johnathan davis</h2><h4>washington</h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- brand -->
+<section id="brand" class="brand">
+    <div class="container">
+        <div class="brand-area">
+            <div class="owl-carousel owl-theme brand-item">
+                <div class="item"><a href="#"><img src="~/images/brand/Logo-RAY-BAN.png" alt="brand"/></a></div>
+                <div class="item"><a href="#"><img src="~/images/brand/shell.webp" alt="brand"/></a></div>
+                <div class="item"><a href="#"><img src="~/images/brand/ups-logo.jpg" alt="brand"/></a></div>
+                <div class="item"><a href="#"><img src="~/images/brand/lenovo-logo.jpg" alt="brand"/></a></div>
+                <div class="item"><a href="#"><img src="~/images/brand/firelli-logo.png" alt="brand"/></a></div>
+                <div class="item"><a href="#"><img src="~/images/brand/puma-logo.jpg" alt="brand"/></a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="blog" class="blog"></section>
+
+<!-- footer -->
+<footer id="contact" class="contact">
+    <div class="container">
+        <div class="footer-top">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-logo"><a href="#">Error <sup>200</sup> showroom</a></div>
+                        <br><br>
+                        <div class="footer-contact">
+                            <p>Error200showroom@themesine.com</p>
+                            <p>+1 (885) 2563154554</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>quick links</h2>
+                        <ul>
+                            <li><a href="#">home</a></li>
+                            <li><a href="Appointments">book appointment</a></li>
+                            <li><a href="Accessories">accessories</a></li>
+                            <li><a href="FeedbackPage">feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="single-footer-widget">
+                        <h2>top brands</h2>
+                        <div class="row">
+                            <div class="col-md-7 col-xs-6">
+                                <ul>
+                                    <li><a href="#featured-cars">mercedes_benz</a></li>
+                                    <li><a href="#featured-cars">lamborghini</a></li>
+                                    <li><a href="#featured-cars">bently</a></li>
+                                    <li><a href="#featured-cars">rolls-royce</a></li>
+                                    <li><a href="#featured-cars">maserati</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-5 col-xs-6">
+                                <ul>
+                                    <li><a href="#featured-cars">ferrari</a></li>
+                                    <li><a href="#featured-cars">porsche</a></li>
+                                    <li><a href="#featured-cars">mclaren</a></li>
+                                    <li><a href="#featured-cars">aston martin</a></li>
+                                    <li><a href="#featured-cars">bugatti</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-offset-1 col-md-3 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h2>news letter</h2>
+                        <div class="footer-newsletter">
+                            <p>Subscribe to get latest news update and information</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>&copy; copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>. | CSAI202 Fall 2024 &mdash; Team 29</p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fa fa-behance"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="scroll-Top">
+        <div class="return-to-top">
+            <i class="fa fa-angle-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="Back to Top" aria-hidden="true"></i>
+        </div>
+    </div>
+</footer>
+
+<script src="~/js/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/bootsnav.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="~/js/custom.js"></script>
+</body>
+</html>

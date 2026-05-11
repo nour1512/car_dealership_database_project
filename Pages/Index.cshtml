@@ -1,0 +1,124 @@
+@page
+@model Error200Dealership.Pages.IndexModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Login / Signup</title>
+    <link rel="stylesheet" href="~/css/login.css">
+    <link rel="shortcut icon" type="image/icon" href="~/logo/white favicon error gold.png"/>
+    <style>
+        .error-msg { color:#ff4d4d; font-size:13px; margin:8px 0; font-weight:600; text-align:center; }
+        /* Staff uses email+role selectors instead of ID */
+        .role-row { display:flex; gap:10px; margin-bottom:8px; font-size:14px; align-items:center; justify-content:center; }
+        .role-row label { margin:0; font-size:14px; font-weight:400; cursor:pointer; }
+        .role-row input[type=radio] { width:auto; padding:0; margin:0 4px 0 0; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login-container">
+            <div class="tab-menu">
+                <button id="staff-tab" class="tab active" onclick="showStaff()">Staff</button>
+                <button id="customer-tab" class="tab" onclick="showCustomerLogin()">Customer</button>
+            </div>
+
+            <!-- Staff Login Form -->
+            <div id="staff-form" class="form active">
+                <h2>Staff Login</h2>
+                <form method="post" asp-page-handler="Login">
+                    <input type="hidden" name="AccountType" id="staffAccountType" value="employee" />
+                    <div class="role-row">
+                        <input type="radio" name="StaffRole" id="r-employee" value="employee" checked onchange="document.getElementById('staffAccountType').value=this.value">
+                        <label for="r-employee">Employee</label>
+                        <input type="radio" name="StaffRole" id="r-manager" value="manager" onchange="document.getElementById('staffAccountType').value=this.value">
+                        <label for="r-manager">Manager</label>
+                    </div>
+                    <input type="email"    name="Email"    placeholder="Email"    required>
+                    <input type="password" name="Password" placeholder="Password" required>
+                    @if (!string.IsNullOrEmpty(Model.LoginError) && Model.LoginErrorType == "staff")
+                    {
+                        <div class="error-msg">@Model.LoginError</div>
+                    }
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+
+            <!-- Customer Login Form -->
+            <div id="customer-login-form" class="form">
+                <h2>Customer Login</h2>
+                <form method="post" asp-page-handler="Login">
+                    <input type="hidden" name="AccountType" value="customer" />
+                    <input type="email"    name="Email"    placeholder="Email"    required>
+                    <input type="password" name="Password" placeholder="Password" required>
+                    @if (!string.IsNullOrEmpty(Model.LoginError) && Model.LoginErrorType == "customer")
+                    {
+                        <div class="error-msg">@Model.LoginError</div>
+                    }
+                    <button type="submit">Login</button>
+                </form>
+                <p class="switch">Don't have an account? <span id="switch-to-customer-signup" onclick="showCustomerSignup()">Sign up</span></p>
+            </div>
+
+            <!-- Customer Signup Form -->
+            <div id="customer-signup-form" class="form">
+                <h2>Create Your Account</h2>
+                <form method="post" asp-page-handler="Signup">
+                    <input type="text"     name="FirstName"      placeholder="First Name"       required>
+                    <input type="text"     name="LastName"        placeholder="Last Name"        required>
+                    <input type="email"    name="SignupEmail"     placeholder="Email"            required>
+                    <input type="text"     name="PhoneNumber"     placeholder="Phone Number (optional)">
+                    <input type="password" name="SignupPassword"  placeholder="Password"         required>
+                    <input type="password" name="ConfirmPassword" placeholder="Confirm Password" required>
+                    @if (!string.IsNullOrEmpty(Model.SignupError))
+                    {
+                        <div class="error-msg">@Model.SignupError</div>
+                    }
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p class="switch">Already have an account? <span id="switch-to-customer-login" onclick="showCustomerLogin()">Login</span></p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="~/js/jquery.js"></script>
+    <script>
+        function showStaff() {
+            document.getElementById('staff-tab').classList.add('active');
+            document.getElementById('customer-tab').classList.remove('active');
+            document.getElementById('staff-form').classList.add('active');
+            document.getElementById('customer-login-form').classList.remove('active');
+            document.getElementById('customer-signup-form').classList.remove('active');
+        }
+        function showCustomerLogin() {
+            document.getElementById('customer-tab').classList.add('active');
+            document.getElementById('staff-tab').classList.remove('active');
+            document.getElementById('customer-login-form').classList.add('active');
+            document.getElementById('staff-form').classList.remove('active');
+            document.getElementById('customer-signup-form').classList.remove('active');
+        }
+        function showCustomerSignup() {
+            document.getElementById('customer-signup-form').classList.add('active');
+            document.getElementById('customer-login-form').classList.remove('active');
+        }
+
+        // On page load: show the right tab based on server-side errors
+        window.addEventListener('DOMContentLoaded', function() {
+            var signupError = "@Model.SignupError";
+            var loginType   = "@Model.LoginErrorType";
+            if (signupError && signupError.trim() !== '') {
+                showCustomerSignup();
+                document.getElementById('customer-tab').classList.add('active');
+                document.getElementById('staff-tab').classList.remove('active');
+            } else if (loginType === 'customer') {
+                showCustomerLogin();
+            }
+        });
+    </script>
+</body>
+</html>

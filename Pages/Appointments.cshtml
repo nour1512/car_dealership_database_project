@@ -1,0 +1,157 @@
+@page
+@model Error200Dealership.Pages.AppointmentsModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments</title>
+    <link rel="shortcut icon" type="image/gif" href="~/logo/book_an_appointment.gif"/>
+    <style>
+        h1 { margin:0; color:#07074d; font-size:40px; font-weight:600; text-transform:capitalize; font-family:'Poppins',sans-serif; text-align:center; margin-bottom:1.5rem; }
+        h1 span { text-transform:lowercase; }
+        .goback-btn { background-color:#A020F0; color:white; padding:10px 20px; border:none; border-radius:5px; font-size:16px; cursor:pointer; transition:background-color 0.3s; }
+        .goback-btn:hover { background-color:#6e3196; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:"Inter",Arial,Helvetica,sans-serif; }
+        .formbold-mb-5 { margin-bottom:20px; }
+        .formbold-pt-3 { padding-top:12px; }
+        .formbold-main-wrapper { display:flex; align-items:center; justify-content:center; padding:48px; background:url(/images/welcome-hero/mclaren-gt.jpg) center/cover no-repeat; min-height:100vh; }
+        .formbold-form-wrapper { margin:0 auto; max-width:550px; width:100%; background:white; padding:36px; border-radius:8px; box-shadow:0 8px 32px rgba(0,0,0,.25); }
+        .formbold-form-label { display:block; font-weight:500; font-size:16px; color:#07074d; margin-bottom:12px; }
+        .formbold-form-label-2 { font-weight:600; font-size:20px; margin-bottom:20px; }
+        .formbold-form-input { width:100%; padding:12px 24px; border-radius:6px; border:1px solid #e0e0e0; background:white; font-weight:500; font-size:16px; color:#6b7280; outline:none; resize:none; font-family:inherit; }
+        .formbold-form-input:focus { border-color:#6a64f1; box-shadow:0px 3px 8px rgba(0,0,0,0.05); }
+        .formbold-btn { text-align:center; font-size:16px; border-radius:6px; padding:14px 32px; border:none; font-weight:600; background-color:#6a64f1; color:white; width:100%; cursor:pointer; font-family:inherit; }
+        .formbold-btn:hover { box-shadow:0px 3px 8px rgba(0,0,0,0.05); background-color:#5a54cb; }
+        .formbold--mx-3 { margin-left:-12px; margin-right:-12px; }
+        .formbold-px-3 { padding-left:12px; padding-right:12px; }
+        .flex { display:flex; }
+        .flex-wrap { flex-wrap:wrap; }
+        .w-full { width:100%; }
+        @@media (min-width:540px) { .sm\:w-half { width:50%; } }
+        .success-msg { background:#d1fae5; color:#065f46; padding:12px; border-radius:6px; margin-bottom:14px; font-weight:600; text-align:center; }
+        .error-msg   { background:#fee2e2; color:#991b1b; padding:12px; border-radius:6px; margin-bottom:14px; font-weight:600; text-align:center; }
+    </style>
+</head>
+<body>
+    <div class="formbold-main-wrapper">
+        <div class="formbold-form-wrapper">
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="success-msg">@Model.SuccessMessage</div>
+            }
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="error-msg">@Model.ErrorMessage</div>
+            }
+
+            <form method="post" asp-page-handler="Book">
+                <div class="formbold-mb-5">
+                    <h1>Schedule <span>an</span> Appointment</h1>
+                    <label for="name" class="formbold-form-label"> Full Name </label>
+                    <input type="text" name="FullName" id="name" placeholder="Full Name" class="formbold-form-input" required value="@Model.LastFullName" />
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="phone" class="formbold-form-label"> Phone Number </label>
+                    <input type="text" name="Phone" id="phone" placeholder="Enter your phone number" class="formbold-form-input" />
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="email" class="formbold-form-label"> Email Address </label>
+                    <input type="email" name="Email" id="email" placeholder="Enter your email" class="formbold-form-input" />
+                </div>
+                <div class="formbold-mb-5">
+                    <label for="apptype" class="formbold-form-label"> Appointment Type </label>
+                    <select name="AppointmentType" id="apptype" class="formbold-form-input">
+                        <option value="">-- Select appointment type --</option>
+                        <option value="Test Drive">Test Drive</option>
+                        <option value="Service and Maintenance">Service and Maintenance</option>
+                        <option value="Purchase Consultation">Purchase Consultation</option>
+                        <option value="Finance Consultation">Finance Consultation</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                </div>
+                <div class="flex flex-wrap formbold--mx-3">
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5 w-full">
+                            <label for="date" class="formbold-form-label"> Date </label>
+                            <input type="date" name="AppointmentDate" id="date" class="formbold-form-input" required />
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-half formbold-px-3">
+                        <div class="formbold-mb-5">
+                            <label for="time" class="formbold-form-label"> Time </label>
+                            <input type="time" name="AppointmentTime" id="time" class="formbold-form-input" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="formbold-mb-5 formbold-pt-3">
+                    <label class="formbold-form-label formbold-form-label-2">Address Details</label>
+                    <div class="flex flex-wrap formbold--mx-3">
+                        <div class="w-full sm:w-half formbold-px-3">
+                            <div class="formbold-mb-5">
+                                <input type="text" name="Area" id="area" placeholder="Enter area" class="formbold-form-input" />
+                            </div>
+                        </div>
+                        <div class="w-full sm:w-half formbold-px-3">
+                            <div class="formbold-mb-5">
+                                <input type="text" name="City" id="city" placeholder="Enter city" class="formbold-form-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="formbold-mb-5">
+                        <input type="text" name="State" id="state" placeholder="Enter state" class="formbold-form-input" />
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="formbold-btn">Book Appointment</button>
+                </div>
+            </form>
+            <br>
+            <div>
+                <form method="post" asp-page-handler="GoBack">
+                    <button type="submit" class="goback-btn">&larr; Go Back</button>
+                </form>
+            </div>
+
+            @if (Model.MyAppointments.Count > 0)
+            {
+                <hr style="margin:24px 0"/>
+                <h3 style="font-size:16px;font-weight:700;color:#07074d;margin-bottom:12px">Recent Appointments</h3>
+                <div style="overflow-x:auto">
+                    <table style="width:100%;border-collapse:collapse;font-size:13px">
+                        <thead>
+                            <tr style="background:#07074d;color:#fff">
+                                <th style="padding:7px 10px;text-align:left">Type</th>
+                                <th style="padding:7px 10px;text-align:left">Date</th>
+                                <th style="padding:7px 10px;text-align:left">Time</th>
+                                <th style="padding:7px 10px;text-align:left">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var a in Model.MyAppointments)
+                            {
+                                <tr style="border-bottom:1px solid #eee">
+                                    <td style="padding:7px 10px">@a.AppointmentType</td>
+                                    <td style="padding:7px 10px">@a.AppointmentDate</td>
+                                    <td style="padding:7px 10px">@a.AppointmentTime</td>
+                                    <td style="padding:7px 10px">
+                                        <span style="background:@(a.Status=="Scheduled"?"#dbeafe":"#d1fae5");color:@(a.Status=="Scheduled"?"#1e40af":"#065f46");padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600">@a.Status</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+    <script>
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>
