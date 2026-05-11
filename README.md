@@ -31,7 +31,7 @@ Error200Dealership/
 
 ---
 
-## ⚙️ Setup — 3 Steps
+##  Setup — 3 Steps
 
 ### Step 1 — Create the Database in SSMS
 
@@ -71,7 +71,7 @@ Open: **http://localhost:5000**
 
 ---
 
-## 👤 Login Credentials
+##  Login Credentials
 
 | Role     | Email                        | Password |
 |----------|------------------------------|----------|
@@ -83,7 +83,7 @@ Open: **http://localhost:5000**
 
 ---
 
-## 🗄️ Database Tables (13 tables)
+##  Database Tables (13 tables)
 
 | Table          | Purpose                              |
 |----------------|--------------------------------------|
@@ -104,7 +104,7 @@ Open: **http://localhost:5000**
 
 ---
 
-## 📄 Pages & Features
+##  Pages & Features
 
 | Page | Features |
 |------|----------|
@@ -119,7 +119,7 @@ Open: **http://localhost:5000**
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -128,19 +128,3 @@ Open: **http://localhost:5000**
 | Database | Microsoft SQL Server (via SSMS) |
 | Data Access | `System.Data.SqlClient` — raw SQL, no ORM |
 | Frontend CSS | Carvilla Template (Bootstrap 3, Poppins, Font Awesome) |
-
----
-
-## 🚀 GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial commit - Error 200 Dealership"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git push -u origin main
-```
-
----
-**Team 29 — CSAI202 Fall 2024**
