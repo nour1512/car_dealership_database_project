@@ -1,6 +1,5 @@
 # 🚗 Error 200 Car Dealership
-**CSAI202 Fall 2024 — Team 29**
-ASP.NET Core Razor Pages + SQL Server (SSMS) + Carvilla Frontend
+ASP.NET Core Razor Pages + SQL Server (SSMS)
 
 ---
 
